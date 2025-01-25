@@ -1,7 +1,8 @@
+using System.Collections;
 using UnityEngine;
 
-[RequireComponent (typeof(ParticleSystem))]
-[RequireComponent (typeof(ParticlesController))]
+[RequireComponent(typeof(ParticleSystem))]
+[RequireComponent(typeof(ParticlesController))]
 public class Explosion : MonoBehaviour
 {
     private ParticleSystem ps;
@@ -20,8 +21,10 @@ public class Explosion : MonoBehaviour
         Destroy(this.gameObject, 5);
     }
 
-    public void BubbleValues(float size, Color color)
+    public IEnumerator BubbleValues(float size, Color color)
     {
+        yield return new WaitForSeconds(1f);
+
         var psMain = ps.main;
         psMain.startColor = color;
 
