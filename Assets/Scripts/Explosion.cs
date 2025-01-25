@@ -10,21 +10,36 @@ public class Explosion : MonoBehaviour
 
     public float BaseSize;
 
+    private Color color;
+    private float size;
+
+    private bool Updated;
+
     public void Start()
     {
         ps = this.gameObject.GetComponent<ParticleSystem>();
         pc = this.gameObject.GetComponent<ParticlesController>();
 
-        BubbleValues(Random.value, new Color(Random.value, Random.value, Random.value));
-
-        Debug.Log("Destroy init");
         Destroy(this.gameObject, 5);
     }
 
-    public IEnumerator BubbleValues(float size, Color color)
+    public void Update()
     {
-        yield return new WaitForSeconds(1f);
+        if (!Updated && ps != null && pc != null) {
+            UpdateParticles();
+            Updated = true;
+        }
+    }
 
+
+    public void BubbleValues(float size, Color color)
+    {
+        this.size = size;
+        this.color = color;
+    }
+
+    private void UpdateParticles()
+    {
         var psMain = ps.main;
         psMain.startColor = color;
 
