@@ -289,7 +289,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1
+      scalar: 2
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -606,7 +606,7 @@ ParticleSystem:
         m_RotationOrder: 4
     randomizeRotationDirection: 0
     gravitySource: 0
-    maxNumParticles: 10000
+    maxNumParticles: 1000
     customEmitterVelocity: {x: 0, y: 0, z: 0}
     size3D: 0
     rotation3D: 0
@@ -981,7 +981,7 @@ ParticleSystem:
       time: 0
       countCurve:
         serializedVersion: 2
-        minMaxState: 3
+        minMaxState: 0
         scalar: 10000
         minScalar: 1000
         maxCurve:
@@ -3848,7 +3848,7 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     minKillSpeed: 0
-    maxKillSpeed: 10000
+    maxKillSpeed: 0
     radiusScale: 0.1
     collidesWith:
       serializedVersion: 2
@@ -4906,8 +4906,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   paintColor: {r: 0, g: 0, b: 1, a: 1}
-  minRadius: 0.02
-  maxRadius: 0.2
+  minRadius: 0.1
+  maxRadius: 0.8
   strength: 1
   hardness: 1
 --- !u!114 &6623368030493235983
@@ -4922,3 +4922,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f4e8aae20997f04c868f42ffee7753c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BaseSize: 1
