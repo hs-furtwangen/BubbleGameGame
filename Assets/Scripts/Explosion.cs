@@ -13,7 +13,7 @@ public class Explosion : MonoBehaviour
     private Color color;
     private float size;
 
-    private bool Updated;
+    private bool Updated = false;
 
     public void Start()
     {

@@ -123,6 +123,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   particelBurst: {fileID: 624891140095460233, guid: b72cb5ab7e08f1143913cad39d33ce1a, type: 3}
+  myColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &7609358616765076334
 GameObject:
   m_ObjectHideFlags: 0
@@ -227,7 +228,7 @@ SphereCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
