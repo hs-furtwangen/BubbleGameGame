@@ -8,7 +8,7 @@ public class Bubble : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        print(myColor);
+
     }
 
     // Update is called once per frame
@@ -18,14 +18,16 @@ public class Bubble : MonoBehaviour
     }
 
     void OnCollisionEnter(Collision collision){
-        
-        GameObject colorExplosion = Instantiate(particelBurst, transform.position, transform.rotation);
-        colorExplosion.GetComponent<Explosion>().BubbleValues(transform.localScale.x,myColor);
-        colorExplosion.name = "colorExplosion";
         Destroy(gameObject);
     }
 
     void OnTriggerStay(Collider collider){
        GetComponent<Rigidbody>().AddForce(collider.gameObject.transform.forward * 0.08f);
+    }
+
+    void OnDestroy(){
+        GameObject colorExplosion = Instantiate(particelBurst, transform.position, transform.rotation);
+        colorExplosion.GetComponent<Explosion>().BubbleValues(transform.localScale.x,myColor);
+        colorExplosion.name = "colorExplosion";
     }
 }
