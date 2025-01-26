@@ -45,6 +45,8 @@ public class Explosion : MonoBehaviour
 
         psMain.startSize = size * BaseSize * 2;
 
+        psMain.startSpeed = size * BaseSize * 40;
+
         pc.paintColor = color;
 
         pc.minRadius = size * BaseSize * 0.1f;
