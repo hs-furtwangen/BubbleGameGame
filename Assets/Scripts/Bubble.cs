@@ -6,6 +6,7 @@ public class Bubble : MonoBehaviour
     public GameObject particelBurst;
     public Color myColor;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public bool isBubbleFree = false;
     void Start()
     {
 
@@ -14,10 +15,14 @@ public class Bubble : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Destroy(gameObject, 20f);
+        if(isBubbleFree)
+            Destroy(gameObject, 20f);
     }
 
     void OnCollisionEnter(Collision collision){
+        if(collision.gameObject.name.Contains("Bubble")){
+            myColor = (myColor + collision.gameObject.transform.GetChild(0).GetComponent<MeshRenderer>().material.GetColor("_BaseColor"))/3f;
+        }
         Destroy(gameObject);
     }
 

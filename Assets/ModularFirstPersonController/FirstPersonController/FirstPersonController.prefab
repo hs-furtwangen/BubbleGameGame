@@ -542,10 +542,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f33cc330557c344449592e1c00244871, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  FPSController: {fileID: 0}
   bubble: {fileID: 1987710276145773206, guid: 16e7a27ee2f3e354e8127c725c4cba0f, type: 3}
   bubbleSpawn: {fileID: 7702461046881925035}
   dart: {fileID: 6266167843696320633, guid: 4d60ec4eb55251748941be3db161fc50, type: 3}
   dartSpawn: {fileID: 4873357284530475580}
+  fanAnim: {fileID: 0}
+  windParticles: {fileID: 0}
   fanArea: {fileID: 4322111428963704748}
   air: {fileID: 0}
 --- !u!1 &4322111428963704748
@@ -763,7 +766,7 @@ MonoBehaviour:
   maxLookAngle: 50
   lockCursor: 1
   crosshair: 1
-  crosshairImage: {fileID: 21300000, guid: be4ce60e2c9768c44b9b10b9c5258045, type: 3}
+  crosshairImage: {fileID: 21300000, guid: 048fe127cecc0c24dbe4413c7584c75c, type: 3}
   crosshairColor: {r: 1, g: 1, b: 1, a: 1}
   enableZoom: 1
   holdToZoom: 1
@@ -826,7 +829,7 @@ RectTransform:
   m_GameObject: {fileID: 4459864850190357393}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.05, y: 0.05, z: 0.05}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0.2}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4459864851551516607}

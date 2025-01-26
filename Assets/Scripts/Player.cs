@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
 	RaycastHit hit;
 
     bool gotBubble = false;
+    public FirstPersonController FPSController;
     public GameObject bubble;
     public GameObject bubbleSpawn;
 
@@ -20,57 +21,75 @@ public class Player : MonoBehaviour
     GameObject currentBubble;
     Color currentColor;
     GameObject currentDart;
+
+    bool isPaused = false;
 	
 	void Update()
 	{
-        if(gotBubble && currentBubble != null){
-            MakeAndShootBubble();
+        if(Input.GetKeyUp(KeyCode.Escape) || Input.GetKeyUp(KeyCode.E)){
+            isPaused = !isPaused;
+           
+            FPSController.playerCanMove = !FPSController.playerCanMove;
+            FPSController.enableJump = !FPSController.enableJump;
+            FPSController.cameraCanMove = !FPSController.cameraCanMove;
         }
 
-		ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-		if(Physics.Raycast(ray, out hit))
-		{
-			if(Input.GetMouseButtonUp(0)){
-                //print(hit.collider.name);
-                if(hit.collider.name.Contains("ColorPot")){
-                    gotBubble = true;
-                    currentBubble = Instantiate(bubble, bubbleSpawn.transform.position, bubbleSpawn.transform.rotation, bubbleSpawn.transform);
-                    currentColor = hit.collider.GetComponent<ColorPot>().myColor;
-                    //print( bubble.transform.GetChild(0).GetComponent<MeshRenderer>().sharedMaterial.GetColor("_Color"));
-                    /*switch(hit.collider.name){
-                        case string s when s.Contains("Yellow"):
-                            currentColor = new Vector4(1f, 1f, 0.3f,1f);
-                            break;
-                        case string s when s.Contains("Red"):
-                            currentColor =  new Vector4(1f, 0.3f, 0.3f,1f);
-                            break;
-                        case string s when s.Contains("LightBlue"):
-                            currentColor = new Vector4(0.5f, 1f, 1f,1f);
-                            break;
-                        case string s when s.Contains("Blue"):
-                            currentColor = new Vector4(0f, 0.5f, 1f,1f);
-                            break;
-                        case string s when s.Contains("Green"):
-                            currentColor = new Vector4(0.3f, 1f, 0.3f,1f);
-                            break;
-                        case string s when s.Contains("Pink"):
-                            currentColor = new Vector4(1f, 0.3f, 0.5f,1f);
-                            break;
-                        default:
-                            print("Color not found.");
-                            break;
-                    }*/
-                    currentBubble.transform.GetChild(0).GetComponent<MeshRenderer>().material.SetColor("_BaseColor", currentColor);
-                    currentBubble.GetComponent<Bubble>().myColor = currentColor;
-                    currentBubble.name = "currentBubble";
-
-                }
+        if(!isPaused){
+            if(gotBubble && currentBubble != null){
+                MakeAndShootBubble();
             }
-				
-		}
-        
-        ThrowDart();
-        RotateFan();
+
+            ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if(Physics.Raycast(ray, out hit))
+            {
+                if(Input.GetMouseButtonUp(0)){
+                    //print(hit.collider.name);
+                    if(hit.collider.name.Contains("ColorPot")){
+                        gotBubble = true;
+                        currentBubble = Instantiate(bubble, bubbleSpawn.transform.position, bubbleSpawn.transform.rotation, bubbleSpawn.transform);
+                        currentColor = hit.collider.GetComponent<ColorPot>().myColor;
+                        //print( bubble.transform.GetChild(0).GetComponent<MeshRenderer>().sharedMaterial.GetColor("_Color"));
+                        /*switch(hit.collider.name){
+                            case string s when s.Contains("Yellow"):
+                                currentColor = new Vector4(1f, 1f, 0.3f,1f);
+                                break;
+                            case string s when s.Contains("Red"):
+                                currentColor =  new Vector4(1f, 0.3f, 0.3f,1f);
+                                break;
+                            case string s when s.Contains("LightBlue"):
+                                currentColor = new Vector4(0.5f, 1f, 1f,1f);
+                                break;
+                            case string s when s.Contains("Blue"):
+                                currentColor = new Vector4(0f, 0.5f, 1f,1f);
+                                break;
+                            case string s when s.Contains("Green"):
+                                currentColor = new Vector4(0.3f, 1f, 0.3f,1f);
+                                break;
+                            case string s when s.Contains("Pink"):
+                                currentColor = new Vector4(1f, 0.3f, 0.5f,1f);
+                                break;
+                            default:
+                                print("Color not found.");
+                                break;
+                        }*/
+                        currentBubble.transform.GetChild(0).GetComponent<MeshRenderer>().material.SetColor("_BaseColor", currentColor);
+                        FPSController.crosshairColor = currentColor;
+                        currentBubble.GetComponent<Bubble>().myColor = currentColor;
+                        currentBubble.name = "currentBubble";
+
+                    }
+                }
+                    
+            }
+            
+            ThrowDart();
+            RotateFan();
+        } else {
+            //Rufe Pausemenü auf
+            fanAnim.Play("BaseLayer.fanRotationIdle");
+            windParticles.Pause();
+            windParticles.Clear();
+        }
 	}
 
     void MakeAndShootBubble(){
@@ -81,12 +100,13 @@ public class Player : MonoBehaviour
         
         //Shoots Bubble if mousebutton released
        if(Input.GetMouseButtonUp(0)){
-           gotBubble = false;
+            gotBubble = false;
             currentBubble.transform.SetParent(air.transform);
             currentBubble.AddComponent<Rigidbody>();
             currentBubble.GetComponent<Rigidbody>().mass = 0.001f;
             currentBubble.GetComponent<Rigidbody>().useGravity = false;
             currentBubble.GetComponent<Rigidbody>().AddForce(transform.forward * 0.01f);
+            currentBubble.GetComponent<Bubble>().isBubbleFree = true;
             //currentBubble.AddComponent<ConstantForce>();            
             //currentBubble.GetComponent<ConstantForce>().force = transform.InverseTransformDirection(-transform.right*1);
                
