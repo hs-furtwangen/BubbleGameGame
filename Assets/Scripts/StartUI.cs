@@ -35,7 +35,7 @@ public class StartUI : MonoBehaviour
     public void OpenHowTo(){
         startmenu.SetActive(false);
         howToMenu.SetActive(true);
-        creditsMenu.SetActive(true);
+        creditsMenu.SetActive(false);
     }
 
     public void OpenStartmenu(){
