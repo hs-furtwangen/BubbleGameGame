@@ -22,19 +22,24 @@ public class Player : MonoBehaviour
     Color currentColor;
     GameObject currentDart;
 
-    bool isPaused = false;
+    public bool isPaused = false;
+
+    public GameObject pauseMenu;
 	
 	void Update()
 	{
+        print(isPaused);
         if(Input.GetKeyUp(KeyCode.Escape) || Input.GetKeyUp(KeyCode.E)){
             isPaused = !isPaused;
-           
+            pauseMenu.SetActive(isPaused);
             FPSController.playerCanMove = !FPSController.playerCanMove;
             FPSController.enableJump = !FPSController.enableJump;
             FPSController.cameraCanMove = !FPSController.cameraCanMove;
+            FPSController.lockCursor = !FPSController.lockCursor;
         }
 
         if(!isPaused){
+            Cursor.lockState = CursorLockMode.Locked;
             if(gotBubble && currentBubble != null){
                 MakeAndShootBubble();
             }
@@ -89,6 +94,8 @@ public class Player : MonoBehaviour
             fanAnim.Play("BaseLayer.fanRotationIdle");
             windParticles.Pause();
             windParticles.Clear();
+            pauseMenu.SetActive(true);
+            Cursor.lockState = CursorLockMode.Confined;
         }
 	}
 
